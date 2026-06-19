@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Add Enquiry | Counsellor Portal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .form-card {
+            border: none;
+            border-radius: 14px;
+        }
+
+        .form-title {
+            font-weight: 600;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container">
+
+        <a class="navbar-brand" href="/dashboard">🎓 Counsellor Portal</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+
+            <ul class="navbar-nav ms-auto gap-2">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/add-enquiry">Add Enquiry</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/view-enquiries">View Enquiries</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="btn btn-warning btn-sm" href="/logout">Logout</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<!-- FORM -->
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8 col-md-10">
+
+            <div class="card form-card shadow">
+
+                <!-- Header -->
+                <div class="card-header bg-white border-0 text-center py-4">
+                    <h3 class="form-title mb-0">Add Course Enquiry</h3>
+                    <p class="text-muted mb-0">Fill the details carefully</p>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <!-- Messages -->
+                    <div th:if="${smsg}" class="alert alert-success" th:text="${smsg}"></div>
+                    <div th:if="${emsg}" class="alert alert-danger" th:text="${emsg}"></div>
+
+                    <!-- FORM -->
+                    <form th:action="@{/enquiry}" th:object="${enquiry}" method="post">
+						<input type="hidden" th:field="*{enqId}" />
+                        <div class="mb-3">
+                            <label class="form-label">Student Name</label>
+                            <input type="text" class="form-control" th:field="*{stuName}" placeholder="Enter student name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" th:field="*{stuPhno}" placeholder="Enter phone number">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Course</label>
+                            <select class="form-select" th:field="*{courseId}">
+                                <option value="">-- Select Course --</option>
+
+                                <option th:each="course : ${courses}"
+                                        th:value="${course.courseId}"
+                                        th:text="${course.courseName}">
+                                </option>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Training Mode</label>
+                            <select class="form-select" th:field="*{classMode}">
+                                <option value="">-- Select Mode --</option>
+                                <option value="Online">Online</option>
+                                <option value="Classroom">Classroom</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Enquiry Status</label>
+                            <select class="form-select" th:field="*{enqStatus}">
+                                <option value="">-- Select Status --</option>
+                                <option value="OPEN">OPEN</option>
+                                <option value="ENROLLED">ENROLLED</option>
+                                <option value="LOST">LOST</option>
+                            </select>
+                        </div>
+
+                        <!-- BUTTON -->
+                        <button type="submit" class="btn btn-primary w-100 py-2">
+                            Save Enquiry
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

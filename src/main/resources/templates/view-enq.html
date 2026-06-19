@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>View Enquiries</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <!-- Navigation -->
+    <ul class="nav justify-content-center mb-4">
+
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard">View Dashboard</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/add-enquiry">Add Enquiry</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="/view-enquiries">View Enquiries</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-danger" href="/logout">Logout</a>
+        </li>
+
+    </ul>
+
+    <hr>
+
+    <!-- Filter Card -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Filter Enquiries</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form th:action="@{/filter-enquiries}"
+                  th:object="${filterRequestDto}"
+                  method="post">
+
+                <div class="row">
+
+                    <!-- Class Mode -->
+                    <div class="col-md-3">
+                        <label class="form-label">Class Mode</label>
+                        <select class="form-select" th:field="*{classMode}">
+                            <option value="">-- Select Mode --</option>
+                            <option value="Online">Online</option>
+                            <option value="Classroom">Classroom</option>
+                        </select>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-3">
+                        <label class="form-label">Enquiry Status</label>
+                        <select class="form-select" th:field="*{enqStatus}">
+                            <option value="">-- Select Status --</option>
+                            <option value="OPEN">OPEN</option>
+                            <option value="ENROLLED">ENROLLED</option>
+                            <option value="LOST">LOST</option>
+                        </select>
+                    </div>
+
+                    <!-- Course -->
+                    <div class="col-md-3">
+                        <label class="form-label">Course</label>
+                        <select class="form-select" th:field="*{courseId}">
+                            <option value="">-- Select Course --</option>
+
+                            <option th:each="course : ${courses}"
+                                    th:value="${course.courseId}"
+                                    th:text="${course.courseName}">
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">
+                            Filter
+                        </button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-striped table-hover">
+
+                <thead class="table-dark">
+                <tr>
+                    <th>S.NO</th>
+                    <th>Student Name</th>
+                    <th>Student Phno</th>
+                    <th>Course</th>
+                    <th>Class Mode</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="enq, loopCounter : ${enqs}">
+
+                    <td th:text="${loopCounter.index + 1}"></td>
+                    <td th:text="${enq.stuName}"></td>
+                    <td th:text="${enq.stuPhno}"></td>
+
+                    <!-- Safe null check to avoid 500 error -->
+                    <td th:text="${enq.course != null ? enq.course.courseName : ''}"></td>
+
+                    <td th:text="${enq.classMode}"></td>
+                    <td th:text="${enq.enqStatus}"></td>
+
+                    <td>
+                        <a th:href="@{/editEnq(enqId=${enq.enqId})}"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

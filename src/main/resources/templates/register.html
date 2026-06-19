@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Register | Counsellor Portal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #eef2f7, #f8fafc);
+        }
+
+        .register-card {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .register-header {
+            background: #0d6efd;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #0d6efd;
+        }
+
+        .btn-primary {
+            border-radius: 10px;
+        }
+
+        .link-text {
+            text-decoration: none;
+        }
+
+        .link-text:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card register-card shadow">
+
+                <!-- HEADER -->
+                <div class="register-header">
+                    <h3 class="mb-0">Create Account</h3>
+                    <small>Register as Counsellor</small>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <!-- SUCCESS / ERROR -->
+                    <div th:if="${smsg}" class="alert alert-success" th:text="${smsg}"></div>
+                    <div th:if="${emsg}" class="alert alert-danger" th:text="${emsg}"></div>
+
+                    <!-- FORM -->
+                    <form th:action="@{/register}" th:object="${counsellor}" method="post">
+
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{name}"
+                                   placeholder="Enter your name">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   th:field="*{email}"
+                                   placeholder="Enter email">
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   th:field="*{pwd}"
+                                   placeholder="Enter password">
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="mb-4">
+                            <label class="form-label">Phone Number</label>
+                            <input type="number"
+                                   class="form-control"
+                                   th:field="*{phno}"
+                                   placeholder="Enter phone number">
+                        </div>
+
+                        <!-- BUTTON -->
+                        <button type="submit" class="btn btn-primary w-100 py-2">
+                            Register
+                        </button>
+
+                    </form>
+
+                    <!-- LOGIN LINK -->
+                    <div class="text-center mt-3">
+                        <a href="/" class="link-text text-primary">
+                            Already have an account? Login
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

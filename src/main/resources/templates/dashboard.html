@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dashboard | Counsellor Portal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .dashboard-card {
+            border: none;
+            border-radius: 14px;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container">
+
+        <a class="navbar-brand" href="/dashboard">
+            🎓 Counsellor Portal
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ms-auto gap-2">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/dashboard">Dashboard</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/add-enquiry">Add Enquiry</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/view-enquiries">View Enquiries</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="btn btn-warning btn-sm" href="/logout">Logout</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<!-- DASHBOARD -->
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Dashboard Overview</h2>
+        <p class="text-muted">Monitor your enquiry performance in real time</p>
+    </div>
+
+    <!-- CARDS -->
+    <div class="row g-4">
+
+        <!-- Total -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card dashboard-card text-white bg-dark">
+                <div class="card-body text-center">
+                    <div class="card-title">Total Enquiries</div>
+                    <div class="card-value" th:text="${dashboardInfo.totalEnqs}">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Open -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card dashboard-card text-white bg-primary">
+                <div class="card-body text-center">
+                    <div class="card-title">Open Enquiries</div>
+                    <div class="card-value" th:text="${dashboardInfo.openEnqs}">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enrolled -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card dashboard-card text-white bg-success">
+                <div class="card-body text-center">
+                    <div class="card-title">Enrolled</div>
+                    <div class="card-value" th:text="${dashboardInfo.enrolledEnqs}">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lost -->
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card dashboard-card text-white bg-danger">
+                <div class="card-body text-center">
+                    <div class="card-title">Lost</div>
+                    <div class="card-value" th:text="${dashboardInfo.lostEnqs}">0</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
